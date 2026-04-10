@@ -169,7 +169,7 @@ const Dashboard = ({
   useEffect(() => {
     const handleResize = () => {
       console.log('Window resized:', window.innerWidth)
-      setExpandedSections({...expandedSections})
+      setExpandedSections(prev=>({...prev}))
     }
     window.addEventListener('resize', handleResize)
     window.addEventListener('scroll', handleResize)
@@ -276,8 +276,7 @@ const Dashboard = ({
 
   const handleToggleTodo = (id: number) => {
     const timeoutId = window.setTimeout(() => {
-      const updated = todos.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t));
-      setTodos(updated);
+      setTodos((prev)=>prev.map((t)=>t.id===id?{...t,completed: !t.completed}: t));
     }, 500);
     toggleTimeoutsRef.current.push(timeoutId);
   };

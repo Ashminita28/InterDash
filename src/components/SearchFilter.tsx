@@ -87,10 +87,8 @@ const SearchFilter = ({ data, onFilter, theme, counter }: SearchFilterProps) => 
             onChange={(e) => {
               const val = e.target.value
               setDisplayValue(val)          // immediate echo
-              setTimeout(() => {
-                setDisplayValue(val)        // BUG: redundant setState resets cursor
-                setQuery(val)              // triggers search
-              }, 0)
+              setQuery(val)              // triggers search
+              
             }}
             placeholder="Search across all data..."
             className="pl-9 text-base"
