@@ -3,51 +3,18 @@ import { marked } from 'marked';
 import DOMPurify from 'dompurify';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
-import { FileText, Undo2 } from 'lucide-react';
+import {text }from '../../src/utils/mark-down-html'
+import  {FileText,Undo2}  from 'lucide-react';
 import { Badge } from './ui/badge';
 
-import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
-interface MarkdownEditorProps {
-  theme: string;
-}
-
-const MarkdownEditorComponent = ({ theme}: MarkdownEditorProps) => {
-  const [markdown, setMarkdown] = useState(`# Hello World  
-
-This is a **markdown** editor with _live preview_.  
-
-## Features  
-- Real-time preview  
-- Syntax highlighting  
-- HTML sanitization  
-
-\`\`\`javascript  
-function hello() {  
-  console.log('Hello, World!');  
-}  
-\`\`\`  
-
-| Column 1 | Column 2 | Column 3 |  
-|----------|----------|----------|  
-| Cell 1   | Cell 2   | Cell 3   |  
-| Cell 4   | Cell 5   | Cell 6   |  
-
-> This is a blockquote with some **bold** text.  
-
----  
-
-1. First item  
-2. Second item  
-3. Third item  
-`);
+const MarkdownEditorComponent = () => {
+  const [markdown, setMarkdown] = useState(text);
 
   const [preview, setPreview] = useState('');
   const [wordCount, setWordCount] = useState(0);
   const [history, setHistory] = useState<string[]>([]);
 
-  
   useEffect(() => {
     const html = marked(markdown) as string;
     const sanitized = DOMPurify.sanitize(html);
@@ -111,7 +78,7 @@ function hello() {
             <textarea
               value={markdown}
               onChange={handleChange}
-              className="w-full h-[300px] p-3 font-mono text-sm border rounded-md resize-y bg-background"
+              className="w-full h-75 p-3 font-mono text-sm border rounded-md resize-y bg-background"
               aria-label='markdown-editor-textarea'
             />
           </div>
@@ -120,7 +87,7 @@ function hello() {
             <h4 className="text-sm font-medium mb-2">Preview</h4>
 
             <div
-              className="h-[300px] overflow-auto p-3 border rounded-md bg-muted/30 prose prose-sm max-w-none"
+              className="h-75 overflow-auto p-3 border rounded-md bg-muted/30 prose prose-sm max-w-none"
               aria-live='polite'
               dangerouslySetInnerHTML={{ __html: preview }}
             />
